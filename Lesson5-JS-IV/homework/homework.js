@@ -4,41 +4,75 @@ function multiplyArguments() {
   // use the arguments keyword to multiply all of the arguments together and return the product
   // if no arguments are passed in return 0
   // if one argument is passed in just return it
+  var argArr = Array.from(arguments);
+  if(argArr.length === 0){
+    return 0;
+  }
+  return argArr.reduce(function(acc, el){
+    return acc * el;
+  });
 }
 
 function invokeCallback(cb) {
   // invoke cb
+  cb();
 }
 
 function sumArray(numbers, cb) {
   // sum up all of the integers in the numbers array
   // pass the result to cb
   // no return is necessary
+  var sum = numbers.reduce(function(acc, item){
+    return acc + item;
+  });
+  cb(sum);
 }
 
 function forEach(arr, cb) {
   // iterate over arr and pass its values to cb one by one
   // hint: you will be invoking cb multiple times (once for each value in the array)
+  for(var i = 0; i < arr.length; i++){
+    cb(arr[i]);
+  }
 }
 
 function map(arr, cb) {
   // create a new array
   // iterate over each value in arr, pass it to cb, then place the value returned from cb into the new arr
   // the new array should be the same length as the array argument
+  var newArr = [];
+  for(var i = 0; i < arr.length; i++){
+    var temp = cb(arr[i]);
+    newArr.push(temp);
+  }
+  return newArr;
 }
 
-function createUserClass() {
-  // create a class constructor called User
-  // it should accept an options object with username, name, email, and password properties
-  // in the constructor set the username, name, email, and password properties
-  // the constructor should have a method 'sayHi' on its prototype that returns the string 'Hello, my name is {{name}}'
-  // {{name}} should be the name set on each instance
-  // return the constructor
-}
+// function createUserClass(obj) {
+//   // create a class constructor called User
+//   // it should accept an options object with username, name, email, and password properties
+//   // in the constructor set the username, name, email, and password properties
+//   // the constructor should have a method 'sayHi' on its prototype that returns the string 'Hello, my name is {{name}}'
+//   // {{name}} should be the name set on each instance
+//   // return the constructor
+//   function User(obj){
+//
+//       this.username = obj.username;
+//       this.name = obj.name;
+//       this.email =obj.email;
+//       this.password =obj.password;
+//       this.prototype.sayHi = function() {
+//         return `Hello, my name is ${name}`;
+//       };
+//   }
+// }
 
 function addPrototypeMethod(Constructor) {
   // add a method to the constructor's prototype
   // the method should be called 'sayHi' and should return the string 'Hello World!'
+  Constructor.prototype.sayHi = function() {
+  return 'Hello World!';
+  };
 }
 
 // !! This is the end of the homework exercises !!
@@ -47,10 +81,10 @@ function addPrototypeMethod(Constructor) {
 
 
 
-// !! ------------------ !! 
+// !! ------------------ !!
 /* The following exercises are extra credit, they are not required as part of the homework. In order to solve these problems you will need
-   to independantly study the concepts of Closure, and Recursion. There are links in the main README file to strt you on your journey. 
-   If you want to attempt these exercises, you will need to access the test.js file in the tests folder, and uncomment the tests pertaining 
+   to independantly study the concepts of Closure, and Recursion. There are links in the main README file to strt you on your journey.
+   If you want to attempt these exercises, you will need to access the test.js file in the tests folder, and uncomment the tests pertaining
    to the exercise you are attempting. Good luck! */
 
 
@@ -59,6 +93,9 @@ function addReverseString() {
   // name this method reverse
   // hint:
   // you will need to use 'this' inside of reverse
+  String.prototype.reverse = function(){
+    return this.split('').reverse().join('');
+  };
 }
 
 function nFactorial(n) {
@@ -66,6 +103,10 @@ function nFactorial(n) {
   // solve this recursively
   // example:
   // the factorial of 3 is 6 (3 * 2 * 1)
+  if(n === 1){
+    return 1;
+  }
+  return n * nFactorial(n-1);
 }
 
 function cacheFunction(cb) {
@@ -80,6 +121,17 @@ function cacheFunction(cb) {
   // if the function you return is invoked with 5 it would pass 5 to cb(5) and return 25
   // if the function you return is invoked again with 5 it will look on an object in the closure scope
   // and return 25 directly and will not invoke cb again
+
+
+  var memoize = {};
+  return function(x) {
+    if (memoize.hasOwnProperty(x)){
+      return memoize[x];
+    } else {
+      memoize[x] = cb(x);
+      return memoize[x];
+    }
+  };
 }
 
 // Do not modify code below this line.
