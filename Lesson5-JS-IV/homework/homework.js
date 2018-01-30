@@ -48,24 +48,27 @@ function map(arr, cb) {
   return newArr;
 }
 
-// function createUserClass(obj) {
+function createUserClass(obj) {
 //   // create a class constructor called User
 //   // it should accept an options object with username, name, email, and password properties
 //   // in the constructor set the username, name, email, and password properties
 //   // the constructor should have a method 'sayHi' on its prototype that returns the string 'Hello, my name is {{name}}'
 //   // {{name}} should be the name set on each instance
 //   // return the constructor
-//   function User(obj){
-//
-//       this.username = obj.username;
-//       this.name = obj.name;
-//       this.email =obj.email;
-//       this.password =obj.password;
-//       this.prototype.sayHi = function() {
-//         return `Hello, my name is ${name}`;
-//       };
-//   }
-// }
+class User {
+     constructor(options) {
+         this.username = options.username;
+         this.name = options.name;
+         this.email = options.email;
+         this.password = options.password;
+     }
+     sayHi() {
+         return 'Hello, my name is ' + this.name;
+     }
+ }
+ return User;
+
+ }
 
 function addPrototypeMethod(Constructor) {
   // add a method to the constructor's prototype
