@@ -23,8 +23,9 @@ Todo.prototype.completeTodo = function () {
   this.complete = true;
 }
 /* STEP 4: initiate an array called 'toDoItems'. In this array you should have one new object of the class Todo. */
-let newObject = new Todo();
 let toDoItems = [];
+let newObject = new Todo();
+
 toDoItems.push(newObject);
 /*
   STEP 5: This function, buildTodo, will take an object of class Todo as it's first argument and
@@ -71,7 +72,6 @@ function buildTodos(arr) {
 }
 
 
-function displayTodos() {
 /*
   STEP 7: Now that we can build an array of todo elements, we want to make these elements appear on the screen,
           to do this we will create a 'displayTodos' function.
@@ -82,7 +82,17 @@ function displayTodos() {
           5.) at the very end of this file, the line before the comment "DO NOT CHANGE ANY CODE BELOW THIS LINE", call this function.
           You can now load your html file in your broswer and see your work so far.
 */
+
+function displayTodos() {
+  let todoContainer = document.querySelector('#todoContainer');
+  todoContainer.innerHTML = '';
+  let bt = buildTodos(toDoItems);
+
+  for ( let i = 0 ; i < toDoItems.length ; i++){
+    todoContainer.appendChild(bt[i]);
+  }
 }
+
 
 
 
@@ -102,7 +112,12 @@ function addTodo() {
 */
 
 //UNCOMMENT THE NEXT LINE
-// let newTodo = document.querySelector('#todoInput');
+
+let newTodo = document.querySelector('#todoInput');
+let newtoD = new Todo (newTodo.value);
+toDoItems.push(newtoD);
+newTodo.value= '';
+displayTodos();
 }
 
 /*
@@ -112,7 +127,10 @@ STEP 9: In this step we will fire addTodo everytime the 'ADD' button is clicked.
 */
 
 //UNCOMMENT THE NEXT LINE
-// let button;
+let button = document.querySelector('#addButton');
+button.onclick = function(){
+  addTodo;
+}
 
 
 
@@ -130,7 +148,9 @@ function completeTodo(event) {
           3.) In the buildTodo function add a 'click' event listener to the 'todoText' element, and pass this function as the callback.
 */
 //UNCOMMENT THE NEXT LINE
-// let index = event.target.id;
+let index = event.target.id;
+toDoItems[index].completeTodo();
+displayTodos();
 }
 
 /* STEP 11: Make sure ALL tests pass */
